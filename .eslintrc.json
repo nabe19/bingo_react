@@ -1,0 +1,23 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb-typescript"
+        ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true //Allows for the parsing of JSX
+        },
+        "project": ["./tsconfig.json"]
+    },
+    "rules": {
+        "react/props-types": "off",
+        "@typescript-eslint/no-empty-interface": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
