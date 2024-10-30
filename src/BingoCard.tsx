@@ -1,15 +1,19 @@
 import React from 'react';
 import Square from './Square';
-import SquareContainer from './modules/SquareContainer';
 
 type BingoCardType = {
   columns: number,
-  maxNumber: number,
-  squares: SquareContainer[][]
+  squares: number[][],
+  hitSquares: boolean[][],
 };
 
 export default function BingoCard(props:BingoCardType) {
-  const { columns, maxNumber, squares } = props;
+  const {
+    columns, squares, hitSquares,
+  } = props;
+
+  // const isHit = (num: number): boolean => balls.includes(num);
+
   return (
     <>
       <div>
@@ -17,19 +21,21 @@ export default function BingoCard(props:BingoCardType) {
         { columns }
       </div>
       {
-        squares.map((line) => (
-          <>
+        squares.map((line, verIndex) => (
+          <div
+            key={line.join('')}
+          >
             {
-              line.map((sq) => (
+              line.map((num, horIndex) => (
                 <Square
-                  squareNum={sq.squareNum}
-                  isHit={sq.isHit}
-                  numberLength={maxNumber.toString().length}
+                  key={num}
+                  squareNum={num}
+                  isHit={hitSquares[verIndex][horIndex]}
                 />
               ))
             }
             <br />
-          </>
+          </div>
         ))
       }
     </>
