@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import BingoCard from './BingoCard';
 import BingoCardContainer from './modules/BingoCardContainer';
 
@@ -19,16 +19,11 @@ export default function App() {
 
   return (
     <div>
-      <input
-        type="number"
-        value={columns}
-        onChange={(event) => { setColumns(parseValue(event.currentTarget.value, columns)); }}
-      />
-      <input
-        type="number"
-        value={maxNumber}
-        onChange={(event) => { setMaxNumber(parseValue(event.currentTarget.value, maxNumber)); }}
-      />
+      列数：
+      {columns} 
+      ボール数：
+      {maxNumber}
+      <hr />
       <BingoCard
         columns={card.columns}
         maxNumber={card.maxNumber}
