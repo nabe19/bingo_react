@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import BingoCard from './BingoCard';
-import BingoCardContainer from './modules/BingoCardContainer';
-import Common from './modules/Common';
+import { BingoCardContainer, rangeNumRecord } from './modules/BingoCardContainer';
+import { getNewNumber, generate2DArray, transpose } from './modules/Common';
 
 export default function App() {
   const columns = 5; // カードの列数、縦横共通
@@ -11,6 +11,7 @@ export default function App() {
   const [hitSquares, setHitSquares] = useState<boolean[][]>(Array);
   const [squares, setSquares] = useState<number[][]>(Array);
   const [initialized, setInitialized] = useState<boolean>(false);
+  const [ball, setBall] = useState<number>(0);
 
   // const parseValue = (value: string | null, defaultValue:number):number => {
   //   if (value === null) {
@@ -23,13 +24,6 @@ export default function App() {
   //   return parsed;
   // };
 
-  const rangeNumRecord = ():number => Math.ceil(maxNumber / columns);
-
-  // https://qiita.com/kznrluk/items/790f1b154d1b6d4de398
-  const transpose = (arr: boolean[][]) => {
-    if (arr.length <= 0) return arr;
-    return arr[0].map((_, c) => arr.map((r) => r[c]));
-  };
   const diagonal = (arr: boolean[][]) => {
     if (arr.length <= 0) return arr;
     const result: boolean[][] = Array(2);
@@ -65,14 +59,6 @@ export default function App() {
     return countHorizontal + countVertical + countDiagonal;
   };
 
-  // https://qiita.com/butchi_y/items/db3078dced4592872a9c
-  const generate2DArray = (
-    m: number,
-    n: number,
-    val: number | boolean,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ) => [...Array(m)].map((_) => Array(n).fill(val));
-
   const verticalLine = (index: number) => squares.map((element) => element[index]);
 
   const reachCount = (): number => countHitSquares(columns - 1);
@@ -92,15 +78,18 @@ export default function App() {
 
   const ballGet = () => {
     if (balls.length >= maxNumber + 1) return;
-    const ball:number = Common.getNewNumber(balls, 1, maxNumber);
-    setBalls((prevValue) => prevValue.concat(ball));
-    const horIndex = Math.ceil(ball / rangeNumRecord()) - 1; // カードは縦列ごと数の範囲が決まっているため、計算で横位置が確定する
-    const verIndex = verticalLine(horIndex).indexOf(ball);
+    const b = getNewNumber(balls, 1, maxNumber);
+    setBall(b);
+    setBalls((prevValue) => prevValue.concat(b));
+    const horIndex = Math.ceil(
+      b / rangeNumRecord(maxNumber, columns),
+    ) - 1; // カードは縦列ごと数の範囲が決まっているため、計算で横位置が確定する
+    const verIndex = verticalLine(horIndex).indexOf(b);
     if (verIndex !== -1) {
       setHitSquares((prevValue) => prevValue.map((hitLine, i) => {
-        if (i === horIndex) {
+        if (i === verIndex) {
           return hitLine.map((hitSq, j) => {
-            if (j === verIndex) {
+            if (j === horIndex) {
               return true;
             }
             return hitSq;
@@ -147,6 +136,9 @@ export default function App() {
         maxNumber={maxNumber}
       />
       <div>
+        出たボール：
+        {(ball === 0) ? 'まだボールがないです。' : `${ball}番`}
+        <br />
         リーチ：
         {reachCount()}
         <br />
@@ -157,7 +149,7 @@ export default function App() {
         type="button"
         onClick={ballGet}
       >
-        ボール排出
+        次のボール
       </button>
     </div>
   );
