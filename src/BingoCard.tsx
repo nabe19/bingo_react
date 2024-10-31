@@ -1,5 +1,5 @@
 import React from 'react';
-import Square from './Square';
+import { Square } from './Square';
 
 type BingoCardType = {
   squares: number[][],

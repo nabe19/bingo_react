@@ -4,7 +4,8 @@ export type SquareType = {
   numLength: number,
 };
 
-const Square: React.FunctionComponent<SquareType> = ({ squareNum, isHit, numLength }) => {
+export function Square(props: SquareType) {
+  const { squareNum, isHit, numLength } = props;
   const getZeroPaddingNum = (length: number): string => (Array(length).join('0') + squareNum).slice(-length);
 
   if (squareNum === 0) {
@@ -14,6 +15,4 @@ const Square: React.FunctionComponent<SquareType> = ({ squareNum, isHit, numLeng
     return (`(${getZeroPaddingNum(numLength)})`);
   }
   return (` ${getZeroPaddingNum(numLength)} `);
-};
-
-export default Square;
+}
