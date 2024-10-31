@@ -1,12 +1,10 @@
-import { getNewNumber } from './Common';
+import { getNewNumber, rangeNumRecord } from './Common';
 
 type BingoCardType = {
   columns: number,
   maxNumber: number,
 };
 export function BingoCardContainer(props:BingoCardType) {
-  const useRangeNumRecord = ():number => Math.ceil(props.maxNumber / props.columns);
-
   const squares: number[][] = [];
   let cardRecord: number[];
   for (let horIndex = 0; horIndex < props.columns; horIndex += 1) {
@@ -19,8 +17,8 @@ export function BingoCardContainer(props:BingoCardType) {
         cardRecord.push(
           getNewNumber(
             squares.map(((element) => element[verIndex])),
-            useRangeNumRecord() * verIndex + 1,
-            Math.min(useRangeNumRecord() * (verIndex + 1), props.maxNumber),
+            rangeNumRecord(props.maxNumber, props.columns) * verIndex + 1,
+            Math.min(rangeNumRecord(props.maxNumber, props.columns) * (verIndex + 1), props.maxNumber),
           ),
         );
       }
@@ -29,8 +27,3 @@ export function BingoCardContainer(props:BingoCardType) {
   }
   return squares;
 }
-
-export function rangeNumRecord(
-  maxNumber: number,
-  columns: number,
-):number { return Math.ceil(maxNumber / columns); }

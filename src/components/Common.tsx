@@ -28,3 +28,8 @@ export function transpose(arr: boolean[][]) {
   if (arr.length <= 0) return arr;
   return arr[0].map((_, c) => arr.map((r) => r[c]));
 }
+
+export function rangeNumRecord(
+  maxNumber: number,
+  columns: number,
+):number { return Math.ceil(maxNumber / columns); }

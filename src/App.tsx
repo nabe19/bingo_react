@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import BingoCard from './BingoCard';
-import { BingoCardContainer, rangeNumRecord } from './modules/BingoCardContainer';
-import { getNewNumber, generate2DArray, transpose } from './modules/Common';
+import React, { useState } from 'react'
+import BingoCard from './components/BingoCard';
+import { BingoCardContainer } from './components/BingoCardContainer';
+import { getNewNumber, generate2DArray, transpose, rangeNumRecord } from './components/Common';
+import './App.css'
 
-export default function App() {
+function App() {
   const columns = 5; // カードの列数、縦横共通
   const maxNumber = 75;
   //  const balls:Set<number> = new Set([0]);
@@ -70,7 +71,7 @@ export default function App() {
     setSquares(BingoCardContainer({ columns, maxNumber }));
     setHitSquares(generate2DArray(columns, columns, false).map((arr, i) => {
       if (i === Math.floor(columns / 2)) {
-        return arr.map((col, j) => j === Math.floor(columns / 2));
+        return arr.map((_col, j) => j === Math.floor(columns / 2));
       }
       return arr;
     }));
@@ -154,3 +155,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App
