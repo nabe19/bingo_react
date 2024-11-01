@@ -11,7 +11,7 @@ export function useBingoCard(props:BingoCardType) {
   const [squares, setSquares] = useState<number[][]>(Array);
 
   const resetBingoCard = () => {
-    let temp: number[][] = [];
+    const temp: number[][] = [];
     let cardRecord: number[];
     for (let horIndex = 0; horIndex < props.columns; horIndex += 1) {
       cardRecord = new Array(0);
