@@ -27,6 +27,7 @@ function App() {
   // };
 
   const reset = () => {
+    setBall(0);
     setBalls([0]);
     resetBingoCard();
   };
@@ -76,7 +77,7 @@ function App() {
       />
       <div>
         出たボール：
-        {(ball === 0) ? 'まだボールがないです。' : `${ball}番`}
+        {(ball === 0) ? 'ボールなし' : `${ball}番`}
         <br />
         リーチ：
         {reachCount()}
