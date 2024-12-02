@@ -18,7 +18,9 @@ module.exports = {
   },
   ignorePatterns: ['dist'],
   rules: {
+    'react/jsx-uses-react': 'off',
     'react/props-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-empty-interface': 0,
   },
   settings: {
