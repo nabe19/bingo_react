@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import BingoCard from './components/BingoCard';
 import { useBingoCard } from './components/BingoCardContainer';
-import { getNewNumber, } from './components/Common';
-import './App.css'
+import { getNewNumber } from './components/Common';
+import './App.css';
 
 function App() {
   const columns = 5; // カードの列数、縦横共通
@@ -11,7 +11,9 @@ function App() {
   const [balls, setBalls] = useState<number[]>([0]); // 選ばれたボールの履歴
   const [initialized, setInitialized] = useState<boolean>(false);
   const [ball, setBall] = useState<number>(0);
-  const { squares, hitSquares, resetBingoCard, reachCount, bingoCount, check } = useBingoCard({ columns, maxNumber });
+  const {
+    squares, hitSquares, resetBingoCard, reachCount, bingoCount, check,
+  } = useBingoCard({ columns, maxNumber });
 
   // const parseValue = (value: string | null, defaultValue:number):number => {
   //   if (value === null) {
@@ -92,4 +94,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

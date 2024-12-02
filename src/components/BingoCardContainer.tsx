@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { generate2DArray, getNewNumber, rangeNumRecord, transpose } from './Common';
+import {
+  generate2DArray, getNewNumber, rangeNumRecord, transpose,
+} from './Common';
 
 type BingoCardType = {
   columns: number,
@@ -24,7 +26,10 @@ export function useBingoCard(props:BingoCardType) {
             getNewNumber(
               temp.map(((element) => element[verIndex])),
               rangeNumRecord(props.maxNumber, props.columns) * verIndex + 1,
-              Math.min(rangeNumRecord(props.maxNumber, props.columns) * (verIndex + 1), props.maxNumber),
+              Math.min(
+                rangeNumRecord(props.maxNumber, props.columns) * (verIndex + 1),
+                props.maxNumber,
+              ),
             ),
           );
         }
@@ -40,7 +45,7 @@ export function useBingoCard(props:BingoCardType) {
       return arr;
     }));
     return null;
-  }
+  };
 
   const verticalLine = (index: number) => squares.map((element) => element[index]);
 
@@ -101,9 +106,10 @@ export function useBingoCard(props:BingoCardType) {
         return hitLine;
       }));
     }
+  };
 
-  }
-
-
-  return {squares, hitSquares, resetBingoCard, reachCount, bingoCount, check };
+  return {
+    squares, hitSquares, resetBingoCard, reachCount, bingoCount, check,
+  };
 }
+export default useBingoCard;
